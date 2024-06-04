@@ -85,6 +85,55 @@ finding_if_its_valid = "name" in dictionary_sample
 del(dictionary_sample["age"])
 
 
+#logics
+
+or_logic = True or False 
+and_logic = True and False
+not_logic = not False 
+
+#if Statement 
+
+if_sample_variable = 0
+
+if and_logic :
+     if_sample_variable = if_sample_variable+1
+elif or_logic :
+     if_sample_variable = if_sample_variable+3
+else :
+     if_sample_variable = if_sample_variable+2
+
+#white loop
+
+while_sample_variable = 10   
+    
+while while_sample_variable > 0 :
+    while_sample_variable = while_sample_variable-1
+    
+#for loop
+
+for_sample_list = [40,20,40,30,10,60,50]
+for_sample_checkedList = []
+for_sample_checkedList_numerate = []
+
+for sample in for_sample_list :
+    checkList = sample > 20
+    for_sample_checkedList.append(checkList)
+    
+for index, sample in enumerate(for_sample_checkedList) :
+    if sample == True :
+        for_sample_checkedList_numerate.append({index: 1})
+    else :
+        for_sample_checkedList_numerate.append({index: 0})
+        
+for key, value in dictionary_sample.items() :
+    if value == "Amir" :
+        dictionary_sample[key] = "Rashin"
+        
+#defining functions
+
+def multi95(data):
+    return data*0.95
+
 #pip3 install numpy 
 
 import numpy as np
@@ -109,6 +158,13 @@ np_correlation_coefficient = np.corrcoef(np_array)
 np_create_random_number = np.random.normal(4,0.4,1000) #mean std samples
 np_create_random_float = np.random.default_rng(124) #ex: seed = 25
 np_create_random_float_sample = np_create_random_float.random((3,5))  #ex: 6
+# np_random_seed = np.random.seed(25) #seed puts 25 as a pattern and create random number from that if we assign a seed we always get same numbers
+np_random_randint = np.random.randint(0,2,100) #between 0,2 and 100 samples
+
+
+np_logical_and = np.logical_and( 1 > 2 , 2 < 3) #False
+np_logical_or = np.logical_or(1 > 2 , 2 < 3) #True
+np_logical_not =  np.logical_not(False) #True
 
 
 #matplotlib
@@ -205,5 +261,47 @@ pd_loc_subseting = pd_df_from_CSV.loc[["s3","s5"]] #getting s3 & s5 rows
 pd_loc_subseting_2 = pd_df_from_CSV.loc[:,["type"]] #getting all rows of column type
 pd_iloc_subseting = pd_df_from_CSV.iloc[[1]] #getting 1 & 4 indexes rows
 pd_iloc_subseting_2 = pd_df_from_CSV.iloc[:,[2]] #getting all rows of column index 2
+pd_comparision_sample = pd_df_from_CSV[pd_df_from_CSV["type"] == "TV Show"]
+
+pd_heads = pd_df_from_CSV.head() #getting some rows to view
+pd_info = pd_df_from_CSV.info() #get columns and their indexs with their types
+pd_shape = pd_df_from_CSV.shape #rows x columns counter
+pd_describe = pd_df_from_CSV.describe() #calc mean std and quartiles if applicable to numeric cols
+pd_values = pd_df_from_CSV.values #get values in arrays of arrays
+pd_cols = pd_df_from_CSV.columns #get cols
+pd_index = pd_df_from_CSV.index #get index range
+pd_sorting_values = pd_df_from_CSV.sort_values(["duration","release_year"],ascending=[False,True]) #sorting by column(s) in descending way one can be False , both cannot be false or true
+pd_isin_method = pd_df_from_CSV[pd_df_from_CSV["genre"].isin(["TV Shows","Action"])]
+pd_multiple_conditions = pd_df_from_CSV[(pd_df_from_CSV["type"] == "Movie") & (pd_df_from_CSV["release_year"] == 1990) | (pd_df_from_CSV["type"] == "TV Show") & (pd_df_from_CSV["release_year"] == 1990)]
+pd_isnull_method = pd_df_from_CSV[pd_df_from_CSV["genre"].isnull()]
+
+#pd_appending_or_adding_new_cols
+pd_df_from_CSV["test_column"] = pd_df_from_CSV["duration"] / 1000
+
+pd_mean = pd_df_from_CSV["duration"].mean()
+pd_max = pd_df_from_CSV["duration"].max()
+pd_min = pd_df_from_CSV["duration"].min()
+pd_std = pd_df_from_CSV["duration"].std()
+pd_median = pd_df_from_CSV["duration"].median()
+pd_mode = pd_df_from_CSV["duration"].mode()
+pd_variance = pd_df_from_CSV["duration"].var()
+pd_quantile = pd_df_from_CSV["duration"].quantile()
+pd_sum = pd_df_from_CSV["duration"].sum()
+pd_cumsum = pd_df_from_CSV["duration"].cumsum() #like reduce function add each to each and go forward
+pd_cummin = pd_df_from_CSV["duration"].cummin() #add minimum to each
+pd_cummax = pd_df_from_CSV["duration"].cummax() #add maximum to each
+pd_cumprod = pd_df_from_CSV["duration"].cumprod() #product each and add then go forward
+
+#custom calc func
+def pct95(col):
+    return col.quantile(0.95)
+
+pd_agg = pd_df_from_CSV["duration"].agg([pct95,"sum"])
+
+pd_drop_dup_rows = pd_df_from_CSV.drop_duplicates(subset="type") #column in subset for droping dups in columns keep first and drop others
+pd_drop_dup_rows_my_multiple_cols =  pd_df_from_CSV.drop_duplicates(subset=["duration","release_year"])
+pd_unique_value_counts = pd_df_from_CSV["director"].value_counts(sort=True,ascending=True,normalize=True) #turn into porporation of total with normalize otherwise an integer of counted unique values in this case director name
+pd_groupby_single_variable = pd_df_from_CSV.groupby("director")["duration"].agg(["sum","max"]) #grouping by director and calculating sum and max of duration filmed no default summarizing func
+pd_pivotTable = pd_df_from_CSV.pivot_table(values="duration",index="director", aggfunc=["sum","max"]) #same as group by but as default it summarize using mean but can pass an alternative to aggfunc
 
 
