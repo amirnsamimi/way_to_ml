@@ -305,3 +305,5 @@ pd_groupby_single_variable = pd_df_from_CSV.groupby("director")["duration"].agg(
 pd_pivotTable = pd_df_from_CSV.pivot_table(values="duration",index="director", aggfunc=["sum","max"]) #same as group by but as default it summarize using mean but can pass an alternative to aggfunc
 
 
+
+
