@@ -1,0 +1,3 @@
+  SELECT question, COUNT( DISTINCT user_id), ROUND((1.0*COUNT(user_id)/(SELECT COUNT(user_id) FROM survey)),2) FROM survey GROUP BY question;  
+ 
+   SELECT q.user_id, ( CASE WHEN h.user_id IS NOT NULL THEN 'true' ELSE 'false' END) AS "is_home_try_on", h.number_of_pairs, p.user_id IS NOT NULL AS "is_purchase" FROM quiz q LEFT JOIN home_try_on h ON h.user_id = q.user_id LEFT JOIN purchase p ON q.user_id = p.user_id;
